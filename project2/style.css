@@ -1,0 +1,171 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root{
+    --rule: rgb(147, 144, 144);
+}
+
+html, body{
+    height: 100%;
+    width: 100%;
+    background-color: black;
+    color: white;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+/* ======= GRID ======= */
+.gcontainer{
+     display: grid;
+     grid-template-columns: 1fr 3fr 1fr;
+     gap: 30px;
+     max-width: 1200px;
+     margin: 0 auto;
+     padding: 0 16px;
+}
+
+/* ======= HEADER ======= */
+header{
+    grid-column: span 3;
+    text-align: center;
+    border-bottom: 1px solid var(--rule);
+}
+header > h1{
+    padding: 25px;
+}
+
+/* ======= NAV ======= */
+nav{
+    padding: 0 30px;
+    border-right: 1px solid var(--rule);
+}
+nav ul{
+    list-style: disc;
+    padding-left: 20px;
+}
+nav li{ margin: 8px 0; }
+
+/* ======= ARTICLE ======= */
+article{
+    padding: 30px;
+    display: grid;
+    justify-items: center;              /* default: center the 600px block */
+}
+article h2{
+    font-size: 2.5em;
+    margin-bottom: 15px;
+}
+
+/* cap article content to image width by default */
+article > *{
+    width: min(100%, 600px);
+}
+
+/* image sizing */
+article img{
+    width: 100%;
+    height: auto;
+    display: block;
+}
+article p{
+    margin-top: 30px;
+    line-height: 1.8;
+}
+
+/* ======= ASIDE ======= */
+aside{
+    padding: 30px;
+    border-left: 1px solid var(--rule);
+}
+aside ul{
+    list-style: disc;
+    padding-left: 20px;
+}
+aside li{ margin-bottom: 20px; }
+
+/* ======= FOOTER ======= */
+footer{
+    grid-column: span 3;
+    text-align: center;
+    border-top: 1px solid var(--rule);
+    padding: 15px;
+    font-size: 0.9em;
+}
+
+/* -----------------------------------------------------------
+   MID-RANGE FIX: 1200px down to 981px
+   Make the article fill its column (no centered 600px block),
+   reduce gaps so content sits closer to the aside border.
+----------------------------------------------------------- */
+@media screen and (max-width: 1200px) and (min-width: 981px){
+  /* tighten the space between columns a bit */
+  .gcontainer{
+    gap: 20px;
+  }
+
+  /* let article fill column and content span full width */
+  article{
+    justify-items: stretch;        /* stop centering */
+    padding-right: 0;              /* pull content toward the aside */
+  }
+  article > *{
+    width: 100% !important;        /* override the 600px cap */
+    max-width: none;
+  }
+
+  /* keep aside visually close to article */
+  aside{
+    padding-left: 20px;            /* was 30px */
+  }
+}
+
+/* -----------------------------------------------------------
+   <= 1200px tweaks (nav becomes top row, etc.)
+----------------------------------------------------------- */
+@media screen and (max-width: 1200px){
+    nav{
+        border-right: none;
+        grid-column: span 3;
+        border-bottom: 1px solid var(--rule);
+        padding: 16px 0 16px 30px;
+    }
+    nav li{
+        display: inline-block;
+        margin: 0 10px 10px 0;
+    }
+    aside{
+        padding: 16px 30px;
+    }
+}
+
+/* -----------------------------------------------------------
+   MOBILE: stack everything
+----------------------------------------------------------- */
+@media screen and (max-width: 980px){
+    .gcontainer{
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    nav, article, aside{
+        grid-column: span 3;
+    }
+
+    /* article full width on mobile */
+    article{
+        justify-items: start;
+        padding: 20px 0;
+    }
+    article > *{
+        width: 100% !important;
+        max-width: none;
+    }
+
+    /* nav cleanup on small screens */
+    nav ul{
+        padding-left: 0;
+        list-style: none;
+        text-align: center;
+    }
+}
